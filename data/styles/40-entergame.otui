@@ -1,0 +1,77 @@
+EnterGameWindow < StaticMainWindow
+  !text: tr('Enter Game')
+  size: 260 400
+
+  UIWidget
+    id: ornamentCornerTopLeft
+    size: 81 63
+    image-source: /images/ui/miniwindow/ornamentCornerTopLeft
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin: -60 0 0 -20
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: topFillLeft
+    size: 1 63
+    image-source: /images/ui/miniwindow/ornamentTopFill
+    image-border: 0
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: next.left
+    margin-top: -60
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCenter
+    image-source: /images/ui/miniwindow/ornamentCenter
+    margin-top: -60
+    size: 107 63
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: topFillRight
+    size: 1 63
+    image-source: /images/ui/miniwindow/ornamentTopFill
+    image-border: 0
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: next.left
+    margin-top: -60
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerTopRight
+    size: 81 63
+    image-source: /images/ui/miniwindow/ornamentCornerTopRight
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin: -60 -20 0 0
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerBottomLeft
+    size: 135 33
+    image-source: /images/ui/miniwindow/ornamentCornerBottomLeft
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin: 0 0 -21 -19
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerBottomRight
+    size: 135 33
+    image-source: /images/ui/miniwindow/ornamentCornerBottomRight
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin: 0 -19 -21 0
+    phantom: true
+    focusable: false

@@ -1,0 +1,11 @@
+Module
+  name: client_modulemanager
+  description: Manage other modules
+  author: edubart
+  website: https://github.com/edubart/otclient
+  sandboxed: true
+  scripts: [ modulemanager ]
+  dependencies: [ client_topmenu ]
+  autoload: true
+  @onLoad: init()
+  @onUnload: terminate()

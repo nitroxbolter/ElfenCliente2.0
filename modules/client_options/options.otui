@@ -1,0 +1,122 @@
+OptionCheckBox < CheckBox
+  @onCheckChange: modules.client_options.setOption(self:getId(), self:isChecked())
+  height: 16
+
+  $!first:
+    margin-top: 2
+
+OptionScrollbar < HorizontalScrollBar
+  step: 1
+  @onValueChange: modules.client_options.setOption(self:getId(), self:getValue())
+  
+OptionPanel < Panel
+  margin-right: 7
+  layout:
+    type: verticalBox
+    
+MainWindow
+  id: optionsWindow
+  size: 490 500
+  $mobile:
+    size: 490 360
+
+  UIWidget
+    id: ornamentCornerTopLeft
+    size: 81 63
+    image-source: /images/ui/miniwindow/ornamentCornerTopLeft
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin: -32 0 0 -24
+    phantom: true
+    focusable: false
+
+    UIWidget
+    id: topFillLeft
+    size: 1 63
+    image-source: /images/ui/miniwindow/ornamentTopFill
+    image-border: 0
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: next.left
+    margin-top: -32
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCenter
+    image-source: /images/ui/miniwindow/ornamentCenter
+    margin-top: -32
+    size: 107 63
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: topFillRight
+    size: 1 63
+    image-source: /images/ui/miniwindow/ornamentTopFill
+    image-border: 0
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: next.left
+    margin-top: -32
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerTopRight
+    size: 81 63
+    image-source: /images/ui/miniwindow/ornamentCornerTopRight
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin: -32 -24 0 0
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerBottomLeft
+    size: 135 33
+    image-source: /images/ui/miniwindow/ornamentCornerBottomLeft
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin: 0 0 -25 -23
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerBottomRight
+    size: 135 33
+    image-source: /images/ui/miniwindow/ornamentCornerBottomRight
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin: 0 -23 -25 0
+    phantom: true
+    focusable: false
+
+  @onEnter: modules.client_options.hide()
+  @onEscape: modules.client_options.hide()
+
+  TabBarVertical
+    id: optionsTabBar
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+
+  Panel
+    id: optionsTabContent
+    anchors.top: optionsTabBar.top
+    anchors.left: optionsTabBar.right
+    anchors.right: parent.right
+    anchors.bottom: optionsTabBar.bottom
+    margin-left: 10
+    margin-top: 3
+
+  Button
+    !text: tr('Ok')
+    width: 64
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: |
+      g_settings.save()
+      modules.client_options.hide()

@@ -1,0 +1,185 @@
+BattleIcon < UICheckBox
+  size: 20 20
+  image-color: white
+  image-rect: 0 0 20 20
+
+  $hover !disabled:
+    color: #cccccc
+
+  $!checked:
+    image-clip: 0 0 20 20
+
+  $hover !checked:
+    image-clip: 0 40 20 20
+
+  $checked:
+    image-clip: 0 20 20 20
+
+  $hover checked:
+    image-clip: 0 60 20 20
+
+  $disabled:
+    image-color: #ffffff88
+
+BattlePlayers < BattleIcon
+  image-source: /images/game/battle/battle_players
+
+BattleNPCs < BattleIcon
+  image-source: /images/game/battle/battle_npcs
+
+BattleMonsters < BattleIcon
+  image-source: /images/game/battle/battle_monsters
+
+BattleSkulls < BattleIcon
+  image-source: /images/game/battle/battle_skulls
+
+BattleParty < BattleIcon
+  image-source: /images/game/battle/battle_party
+
+MiniWindow
+  id: battleWindow
+  height: 200
+  @onClose: modules.game_battle.onMiniWindowClose()
+  &save: true
+  &autoOpen: false
+
+  UIWidget
+    !text: tr('Battle')
+    color: #c7c0b8
+    anchors.left: parent.left
+    anchors.verticalCenter: closeButton.verticalCenter
+    margin: 0 0 0 28
+    text-auto-resize: true
+    text-align: left
+    text-wrap: true
+    phantom: true
+
+  Panel
+    id: filterPanel
+    margin-top: 48
+    anchors.top: parent.top
+    anchors.left: parent.left
+    anchors.right: miniwindowScrollBar.left
+    height: 45
+
+    Panel
+      id: buttons
+      anchors.top: parent.top
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 2
+      height: 20
+      width: 120
+      layout:
+        type: horizontalBox
+        spacing: 8
+
+      BattlePlayers
+        id: hidePlayers
+        !tooltip: tr('Hide players')
+        @onSetup: if g_app.isMobile() then self:setChecked(true) end
+        @onCheckChange: modules.game_battle.checkCreatures()
+          
+      BattleNPCs
+        id: hideNPCs
+        !tooltip: tr('Hide Npcs')
+        @onSetup: if g_app.isMobile() then self:setChecked(true) end
+        @onCheckChange: modules.game_battle.checkCreatures()
+
+      BattleMonsters
+        id: hideMonsters
+        !tooltip: tr('Hide monsters')
+        @onCheckChange: modules.game_battle.checkCreatures()
+
+      BattleSkulls
+        id: hideSkulls
+        !tooltip: tr('Hide non-skull players')
+        @onCheckChange: modules.game_battle.checkCreatures()
+
+      BattleParty
+        id: hideParty
+        !tooltip: tr('Hide party members')
+        @onSetup: if g_app.isMobile() then self:setChecked(true) end
+        @onCheckChange: modules.game_battle.checkCreatures()
+
+    Panel
+      id: sortPanel
+      anchors.top: prev.bottom
+      anchors.left: parent.left
+      anchors.right: parent.right
+      height: 23
+      margin-top: 3
+      margin-left: 17
+
+      UIWidget
+        id: vertSep
+        size: 3 3
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
+
+      Panel
+        id: leftHalf
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.right: vertSep.left
+
+      Panel
+        id: rightHalf
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+        anchors.right: parent.right
+        anchors.left: vertSep.right
+
+      ComboBox
+        id: sortTypeBox
+        width: 69
+        anchors.right: leftHalf.right
+        anchors.bottom: parent.bottom
+        margin-right: 0
+
+      ComboBox
+        id: sortOrderBox
+        width: 66
+        anchors.left: rightHalf.left
+        anchors.bottom: parent.bottom
+        margin-left: 0
+
+  Panel
+    height: 18
+    anchors.top: prev.bottom
+    anchors.left: parent.left
+    anchors.right: miniwindowScrollBar.left
+    margin-top: 4
+
+    UIWidget
+      id: toggleFilterButton
+      anchors.top: prev.top
+      width: 21
+      anchors.horizontalCenter: parent.horizontalCenter
+      image-source: /images/ui/arrow_vertical
+      image-rect: 0 0 21 12
+      image-clip: 21 0 21 12
+      @onClick: modules.game_battle.toggleFilterPanel()
+      phantom: false
+
+  HorizontalSeparator
+    anchors.top: prev.top
+    anchors.left: parent.left
+    anchors.right: miniwindowScrollBar.left
+    margin: 11 1 0 14
+
+  MiniWindowContents
+    anchors.top: prev.bottom
+    margin-top: 6
+
+    Panel
+      id: battlePanel
+      anchors.left: parent.left
+      anchors.right: parent.right
+      anchors.top: parent.top
+      margin-top: 5
+      padding-right: 3
+      layout:
+        type: verticalBox
+        fit-children: true

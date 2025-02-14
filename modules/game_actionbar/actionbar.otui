@@ -1,0 +1,104 @@
+ActionButton < UIButton
+  font: cipsoftFont
+  width: 36
+  padding: 1
+  margin-left: 1
+    
+  Item
+    id: item
+    anchors.fill: parent
+    padding: 1
+    &selectable: true
+    &editable: false
+    virtual: true
+    border-width: 1
+    border-color: #00000000
+    draggable: true
+    
+    $!on:
+      image-source: /images/game/actionbar/actionbarslot
+      
+  Label
+    id: text
+    anchors.fill: prev
+    text-auto-resize: true
+    text-wrap: true
+    phantom: true
+    margin: 1
+    text-align: center
+    font: verdana-9px
+
+  Label
+    id: hotkeyLabel
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin: 3 4 3 3
+    text-auto-resize: true
+    text-wrap: false
+    phantom: true
+    font: cipsoftFont
+    color: white
+    background: #292A2A
+
+  Label
+    id: parameterText
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-bottom: -3
+    margin-left: 2
+    margin-right: 2
+    font: verdana-9px
+    color: white
+    text-align: center
+
+  UIProgressRect
+    id: cooldown
+    background: #101010aa
+    percent: 100
+    focusable: false
+    phantom: true
+    anchors.fill: parent
+    font: verdana-11px-rounded
+    color: white
+
+LeftSliders < Panel
+  size: 0 34
+  visible: false
+
+Panel
+  id: actionBar
+  focusable: false
+  image-border: 1
+  margin-top: 2
+  
+  $on:
+    height: 40
+    visible: true
+    
+  $!on:
+    height: 0
+    visible: false
+
+  ScrollablePanel
+    id: tabBar
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    margin-left: 20
+    margin-right: 15
+    clipping: true
+    padding-top: 2
+    padding-bottom: 2
+    horizontal-scrollbar: actionScroll
+    layout: horizontalBox
+
+  HorizontalScrollBar
+    id: actionScroll
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    step: 37
+    pixels-scroll: true
+    visible: false

@@ -1,0 +1,344 @@
+MiniPanel < Panel
+  text-offset: 0 2
+  text-align: top
+  image-source: /images/ui/miniwindow
+  image-border: 4
+  image-border-top: 23
+  padding: 4
+  padding-top: 23
+
+TaskMenuEntry < Panel
+  height: 50
+  image-color: #ababab
+  image-source: /images/ui/panel_flat
+  image-border: 1
+  image-color: #999999
+  focusable: true
+  phantom: false
+
+  $hover !disabled:
+    image-color: #dfdfdf
+
+  $focus:
+    image-color: #ffffff
+
+  UICreature
+    id: preview
+    anchors.top: parent.top
+    anchors.left: parent.left
+    size: 48 48
+
+  Panel
+    id: info
+    anchors.left: prev.right
+    anchors.right: parent.right
+    anchors.verticalCenter: parent.verticalCenter
+    margin-left: 5
+    layout:
+      type: verticalBox
+      fit-children: true
+
+    Label
+      id: title
+      color: #dfdfdf
+
+    Label
+      id: level
+
+    Label
+      id: bonus
+      color: green
+      text: Recommended
+
+MainWindow
+  id: tasksWindow
+  image-source: /images/ui/miniwindow
+  image-border: 4
+  image-border-top: 23
+  font: verdana-13px-antialised
+  color: #c7c0b8
+  size: 830 600
+  padding: 20
+  @onEscape: modules.game_tasks.hide()
+  @onClose: modules.game_tasks.hide()
+
+  UIWidget
+    id: ornamentCornerTopLeft
+    size: 81 63
+    image-source: /images/ui/miniwindow/ornamentCornerTopLeft
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin: -32 0 0 -24
+    phantom: true
+    focusable: false
+
+    UIWidget
+    id: topFillLeft
+    size: 1 63
+    image-source: /images/ui/miniwindow/ornamentTopFill
+    image-border: 0
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: next.left
+    margin-top: -32
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCenter
+    image-source: /images/ui/miniwindow/ornamentCenter
+    margin-top: -32
+    size: 107 63
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: topFillRight
+    size: 1 63
+    image-source: /images/ui/miniwindow/ornamentTopFill
+    image-border: 0
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: next.left
+    margin-top: -32
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerTopRight
+    size: 81 63
+    image-source: /images/ui/miniwindow/ornamentCornerTopRight
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin: -32 -24 0 0
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerBottomLeft
+    size: 135 33
+    image-source: /images/ui/miniwindow/ornamentCornerBottomLeft
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin: 0 0 -25 -23
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerBottomRight
+    size: 135 33
+    image-source: /images/ui/miniwindow/ornamentCornerBottomRight
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin: 0 -23 -25 0
+    phantom: true
+    focusable: false
+
+  Button
+    id: trackerToggle
+    !text: tr('Toggle Tracker')
+    width: 100
+    height: 20
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-right: 5
+    margin-top: 5
+    @onClick: modules.game_tasks.toggleTracker()
+
+  TextEdit
+    id: searchInput
+    anchors.top: parent.top
+    anchors.left: parent.left
+    width: 200
+    placeholder: Search by monster name
+    @onKeyPress: modules.game_tasks.onSearch()
+
+  ScrollablePanel
+    id: tasksList
+    anchors.top: searchInput.bottom
+    anchors.left: parent.left
+    anchors.right: searchInput.right
+    anchors.bottom: separator.top
+    margin-top: 10
+    margin-bottom: 10
+    image-source: /images/ui/panel_flat
+    image-border: 1
+    image-color: #999999
+    padding: 1
+    vertical-scrollbar: tasksListScroll
+    auto-focus: first
+    layout:
+      type: verticalBox
+
+  VerticalScrollBar
+    id: tasksListScroll
+    anchors.top: tasksList.top
+    anchors.bottom: tasksList.bottom
+    anchors.right: tasksList.right
+    step: 24
+    pixels-scroll: true
+  
+  Panel
+    id: info
+    anchors.top: parent.top
+    anchors.left: tasksList.right
+    anchors.right: parent.right
+    anchors.bottom: tasksList.bottom
+    margin-bottom: 35
+
+    margin-left: 10
+    layout: verticalBox
+
+    MiniPanel
+      id: rewards
+      text: Base Rewards
+      padding-bottom: 10
+      layout:
+        type: verticalBox
+        fit-children: true
+
+    MiniPanel
+      id: monsters
+      text: Monsters
+      height: 150
+      margin-top: 5
+      padding-left: 10
+      padding-right: 10
+      padding-bottom: 10
+      layout:
+        type: grid
+        cell-size: 64 64
+        flow: true
+        fit-children: true
+
+    MiniPanel
+      id: kills
+      text: Required Kills
+      height: 100
+      padding-left: 10
+      padding-right: 10
+      padding-bottom: 10
+      margin-top: 5
+      layout:
+        type: verticalBox
+        fit-children: true
+
+      Panel
+        id: bar
+        height: 30
+
+        Label
+          id: min
+          anchors.bottom: scroll.top
+          anchors.left: scroll.left
+          text: 1
+          text-auto-resize: true
+          text-align: left
+          margin-bottom: 3
+
+        HorizontalScrollBar
+          id: scroll
+          anchors.left: parent.left
+          anchors.right: parent.right
+          anchors.bottom: parent.bottom
+          step: 100
+
+        Label
+          id: max
+          anchors.bottom: scroll.top
+          anchors.right: scroll.right
+          text: 100
+          text-auto-resize: true
+          text-align: right
+          margin-bottom: 3
+
+        Label
+          id: value
+          anchors.top: prev.top
+          anchors.horizontalCenter: scroll.horizontalCenter
+          text: 50
+          text-auto-resize: true
+          text-align: center
+
+      Panel
+        id: bonuses
+        margin-top: 5
+        layout:
+          type: verticalBox
+          fit-children: true
+
+        Label
+          id: none
+          text: No Bonuses
+          text-align: center
+
+        Label
+          id: points
+          text: +100% Task Points
+          text-align: center
+          visible: false
+
+        Label
+          id: exp
+          text: +10% Experience
+          text-align: center
+          visible: false
+
+        Label
+          id: gold
+          text: +10% Gold
+          text-align: center
+          visible: false
+
+  Button
+    id: start
+    anchors.horizontalCenter: prev.horizontalCenter
+    anchors.bottom: tasksList.bottom
+    text: Start
+    @onClick: modules.game_tasks.start()
+
+  Button
+    id: cancel
+    anchors.horizontalCenter: prev.horizontalCenter
+    anchors.bottom: tasksList.bottom
+    text: Abandon
+    visible: false
+    @onClick: modules.game_tasks.cancel()
+    margin-left: 10
+
+  Button
+    id: toggleTracker
+    anchors.left: cancel.right
+    anchors.bottom: tasksList.bottom
+    text: Tracker
+    @onClick: modules.game_tasks.toggleTracker()
+    margin-left: 10
+  
+  HorizontalSeparator
+    id: separator
+    anchors.left: parent.left
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    margin-bottom: 30
+
+  Label
+    id: points
+    anchors.left: parent.left
+    anchors.bottom: parent.bottom
+    text-auto-resize: true
+
+  Label
+    id: ranking
+    anchors.left: parent.left
+    anchors.top: separator.bottom
+    text-auto-resize: true
+
+  Button
+    id: closeButton
+    !text: tr('Close')
+    width: 64
+    anchors.right: parent.right
+    anchors.bottom: parent.bottom
+    @onClick: modules.game_tasks.toggle()

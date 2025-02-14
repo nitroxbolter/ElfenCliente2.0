@@ -1,0 +1,7 @@
+InventoryWindow
+  id: inventoryWindow
+  !text: tr('Inventorio')
+  margin-top: 10
+  @onClose: modules.game_inventory.hide()
+  &save: true
+  &autoOpen: 3

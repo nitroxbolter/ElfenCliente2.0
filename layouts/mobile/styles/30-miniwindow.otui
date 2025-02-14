@@ -1,0 +1,199 @@
+MiniWindow < UIMiniWindow
+  font: verdana-11px-antialised
+  icon-rect: 4 4 16 16
+  width: 400
+  height: 500
+  margin-bottom: 5
+  text-offset: 24 24
+  text-align: topLeft
+  font: verdana-13px-antialised
+  color: #c7c0b8
+  image-source: /images/ui/miniwindow/background
+  image-border: 14
+  image-border-top: 48
+  focusable: false
+  &minimizedHeight: 60
+
+  $on:
+    image-border-bottom: 14
+
+  UIWidget
+    id: ornamentCornerTopLeft
+    size: 81 63
+    image-source: /images/ui/miniwindow/ornamentCornerTopLeft
+    anchors.top: parent.top
+    anchors.left: parent.left
+    margin: -12 0 0 -4
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: topFillLeft
+    size: 1 63
+    image-source: /images/ui/miniwindow/ornamentTopFill
+    image-border: 0
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: next.left
+    margin-top: -12
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCenter
+    image-source: /images/ui/miniwindow/ornamentCenter
+    margin-top: -12
+    size: 107 63
+    anchors.top: parent.top
+    anchors.horizontalCenter: parent.horizontalCenter
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: topFillRight
+    size: 1 63
+    image-source: /images/ui/miniwindow/ornamentTopFill
+    image-border: 0
+    anchors.top: parent.top
+    anchors.left: prev.right
+    anchors.right: next.left
+    margin-top: -12
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerTopRight
+    size: 81 63
+    image-source: /images/ui/miniwindow/ornamentCornerTopRight
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin: -12 -4 0 0
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerBottomLeft
+    size: 135 33
+    image-source: /images/ui/miniwindow/ornamentCornerBottomLeft
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    margin: 0 0 -5 -3
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: ornamentCornerBottomRight
+    size: 135 33
+    image-source: /images/ui/miniwindow/ornamentCornerBottomRight
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    margin: 0 -3 -5 0
+    phantom: true
+    focusable: false
+
+  UIWidget
+    id: miniwindowTopBar
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.left: parent.left
+    size: 258 48
+    phantom: true
+
+  UIButton
+    id: closeButton
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 21
+    margin-right: 23
+    size: 20 15
+    image-source: /images/ui/misc/buttons
+    image-clip: 50 0 25 20
+
+    $hover:
+      image-clip: 50 20 25 20
+
+    $pressed:
+      image-clip: 50 40 25 20
+
+  UIButton
+    id: minimizeButton
+    anchors.top: closeButton.top
+    anchors.right: closeButton.left
+    margin-right: 3
+    size: 20 15
+    image-source: /images/ui/misc/buttons
+    image-clip: 0 0 25 20
+
+    $hover:
+      image-clip: 0 20 25 20
+
+    $pressed:
+      image-clip: 0 40 25 20
+
+    $on:
+      image-clip: 25 0 25 20
+
+    $on hover:
+      image-clip: 25 20 25 20
+
+    $on pressed:
+      image-clip: 25 40 25 20
+
+  UIButton
+    id: lockButton
+    anchors.top: minimizeButton.top
+    anchors.right: minimizeButton.left
+    margin-right: 3
+    size: 20 15
+    image-source: /images/ui/misc/buttons
+    image-clip: 175 0 25 20
+
+    $hover:
+      image-clip: 175 20 25 20
+
+    $pressed:
+      image-clip: 175 40 25 20
+
+    $on:
+      image-clip: 175 40 25 20
+
+    $on hover:
+      image-clip: 175 40 25 20
+
+    $on pressed:
+      image-clip: 175 40 25 20
+
+  VerticalScrollBar
+    id: miniwindowScrollBar
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    step: 14
+    margin-top: 51
+    margin-right: 15
+    margin-bottom: 16
+    pixels-scroll: true
+
+    $!on:
+      width: 0
+
+  ResizeBorder
+    id: bottomResizeBorder
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 3
+    minimum: 240
+    margin-left: 3
+    margin-right: 3
+    background: #ffffff88
+
+MiniWindowContents < ScrollablePanel
+  id: contentsPanel
+  anchors.fill: parent
+  anchors.right: miniwindowScrollBar.left
+  padding-bottom: 9
+  margin: 48 0 5 14
+  vertical-scrollbar: miniwindowScrollBar
+
+HeadlessMiniWindow < MiniWindow

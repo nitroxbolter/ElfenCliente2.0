@@ -1,0 +1,82 @@
+CheckBox < UICheckBox
+  size: 21 20
+  text-align: left
+  text-offset: 25 4
+  color: #dfdfdf
+  image-color: #dfdfdfff
+  image-rect: 0 0 21 20
+  image-source: /images/ui/misc/checkboxes
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover !disabled:
+    color: #ffffff
+
+  $!checked:
+    image-clip: 0 0 21 20
+
+  $hover !checked:
+    image-clip: 21 0 21 20
+
+  $hover !checked pressed:
+    image-clip: 105 0 21 20
+
+  $checked:
+    image-clip: 84 0 21 20
+
+  $hover checked:
+    image-clip: 84 0 21 20
+
+  $hover checked pressed:
+    image-clip: 63 0 21 20
+
+  $disabled:
+    image-color: #dfdfdf88
+    color: #dfdfdf88
+    opacity: 0.8
+    change-cursor-image: false
+
+ColorBox < UICheckBox
+  size: 16 16
+  image-color: #dfdfdfff
+  image-source: /images/ui/colorbox
+
+  $checked:
+    image-clip: 16 0 16 16
+
+  $!checked:
+    image-clip: 0 0 16 16
+
+ButtonBox < UICheckBox
+  font: verdana-11px-antialised
+  color: #ffffff
+  size: 75 30
+  text-offset: 0 -1
+  text-align: center
+  image-source: /images/ui/misc/button
+  image-border: 14
+  image-border-left: 36
+  image-border-right: 36
+  image-clip: 0 0 75 30
+  change-cursor-image: true
+  cursor: pointer
+
+  $hover !disabled:
+    image-clip: 0 30 75 30
+
+  $checked:
+    image-clip: 0 60 75 30
+    text-offset: 1 1
+    change-cursor-image: false
+
+  $pressed:
+    image-clip: 0 60 75 30
+    text-offset: 1 1
+
+  $disabled:
+    color: #dfdfdf88
+    opacity: 0.7
+
+ButtonBoxRounded < ButtonBox
+  image-source: /images/ui/button_rounded
+  

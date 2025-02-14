@@ -1,0 +1,126 @@
+MiniWindow < UIMiniWindow
+  font: verdana-11px-antialised
+  icon-rect: 4 4 16 16
+  width: 192
+  height: 200
+  text-offset: 24 5
+  text-align: topLeft
+  image-source: /images/ui/miniwindow
+  image-border: 4
+  image-border-top: 23
+  image-border-bottom: 4
+  focusable: false
+  &minimizedHeight: 24
+
+  $on:
+    image-border-bottom: 2
+
+  UIWidget
+    id: miniwindowTopBar
+    anchors.top: parent.top
+    anchors.right: parent.right
+    anchors.left: parent.left
+    margin-right: 3
+    margin-left: 3
+    margin-top: 3
+    size: 258 18
+    phantom: true
+
+  UIButton
+    id: closeButton
+    anchors.top: parent.top
+    anchors.right: parent.right
+    margin-top: 21
+    margin-right: 23
+    size: 20 15
+    image-source: /images/ui/misc/buttons
+    image-clip: 50 0 25 20
+
+    $hover:
+      image-clip: 50 20 25 20
+
+    $pressed:
+      image-clip: 50 40 25 20
+
+  UIButton
+    id: minimizeButton
+    anchors.top: closeButton.top
+    anchors.right: closeButton.left
+    margin-right: 3
+    size: 20 15
+    image-source: /images/ui/misc/buttons
+    image-clip: 0 0 25 20
+
+    $hover:
+      image-clip: 0 20 25 20
+
+    $pressed:
+      image-clip: 0 40 25 20
+
+    $on:
+      image-clip: 25 0 25 20
+
+    $on hover:
+      image-clip: 25 20 25 20
+
+    $on pressed:
+      image-clip: 25 40 25 20
+
+  UIButton
+    id: lockButton
+    anchors.top: minimizeButton.top
+    anchors.right: minimizeButton.left
+    margin-right: 3
+    size: 20 15
+    image-source: /images/ui/misc/buttons
+    image-clip: 175 0 25 20
+
+    $hover:
+      image-clip: 175 20 25 20
+
+    $pressed:
+      image-clip: 175 40 25 20
+
+    $on:
+      image-clip: 175 40 25 20
+
+    $on hover:
+      image-clip: 175 40 25 20
+
+    $on pressed:
+      image-clip: 175 40 25 20
+
+  VerticalScrollBar
+    id: miniwindowScrollBar
+    anchors.top: parent.top
+    anchors.bottom: parent.bottom
+    anchors.right: parent.right
+    step: 14
+    margin-top: 51
+    margin-right: 15
+    margin-bottom: 16
+    pixels-scroll: true
+
+    $!on:
+      width: 0
+
+  ResizeBorder
+    id: bottomResizeBorder
+    anchors.bottom: parent.bottom
+    anchors.left: parent.left
+    anchors.right: parent.right
+    height: 3
+    minimum: 240
+    margin-left: 3
+    margin-right: 3
+    background: #ffffff88
+
+MiniWindowContents < ScrollablePanel
+  id: contentsPanel
+  anchors.fill: parent
+  anchors.right: miniwindowScrollBar.left
+  padding-bottom: 9
+  margin: 48 0 5 14
+  vertical-scrollbar: miniwindowScrollBar
+
+HeadlessMiniWindow < MiniWindow
