@@ -9,96 +9,55 @@ MinimapCross < UIWidget
   size: 16 16
 
 MinimapFloorUpButton < Button
-  icon-source: /images/ui/minimap/floorUp
-  !tooltip: tr('Map floor +1')
-  icon-clip: 0 0 25 20
-  size: 20 15
-  margin: 10 4 0 0
+  size: 20 20
+  margin-right: 28
+  margin-bottom: 28
   anchors.right: parent.right
-  anchors.top: parent.top
-  image-border: 14
-
+  anchors.bottom: parent.bottom
+  icon-source: /images/game/minimap/floor_up
+  icon-clip: 0 32 16 16
   $pressed:
-    icon-clip: 0 40 25 20
-
+    icon-clip: 0 0 16 16
   $hover !pressed:
-    icon-clip: 0 20 25 20
+    icon-clip: 0 16 16 16
 
 MinimapFloorDownButton < Button
-  icon-source: /images/ui/minimap/floorDown
-  !tooltip: tr('Map floor -1')
-  icon-clip: 0 0 25 20
-  size: 20 15
-  margin: 32 4 0 0
+  size: 20 20
+  margin-right: 28
+  margin-bottom: 4
   anchors.right: parent.right
-  anchors.top: parent.top
-  image-border: 14
+  anchors.bottom: parent.bottom
+  icon-source: /images/game/minimap/floor_down
+  icon-clip: 0 32 16 16
   $pressed:
-    icon-clip: 0 40 25 20
+    icon-clip: 0 0 16 16
   $hover !pressed:
-    icon-clip: 0 20 25 20
+    icon-clip: 0 16 16 16
 
 MinimapZoomInButton < Button
-  icon-source: /images/ui/minimap/mapZoomIn
-  icon-clip: 0 0 25 20
-  size: 20 15
-  margin: 0 4 29 0
+  text: +
+  size: 20 20
+  margin-right: 4
+  margin-bottom: 28
   anchors.right: parent.right
   anchors.bottom: parent.bottom
-  image-border: 14
-  
-  $pressed:
-    icon-clip: 0 40 25 20
-
-  $hover !pressed:
-    icon-clip: 0 20 25 20
+  //icon-source: /images/game/minimap/zoom_in
 
 MinimapZoomOutButton < Button
-  icon-source: /images/ui/minimap/mapZoomOut
-  icon-clip: 0 0 25 20
-  size: 20 15
-  margin: 0 4 7 0
+  text: -
+  size: 20 20
+  margin-right: 4
+  margin-bottom: 4
   anchors.right: parent.right
   anchors.bottom: parent.bottom
-  image-border: 14
-  
-  $pressed:
-    icon-clip: 0 40 25 20
-    
-  $hover !pressed:
-    icon-clip: 0 20 25 20
-
-MinimapMaxButton < Button
-  icon-source: /images/ui/minimap/mapExpand
-  !tooltip: tr('Toggle full map.')
-  icon-clip: 0 0 25 20
-  size: 20 15
-  margin: 10 0 0 4
-  anchors.left: parent.left
-  anchors.top: parent.top
-  image-border: 14
-  
-  $pressed:
-    icon-clip: 0 40 25 20
-
-  $hover !pressed:
-    icon-clip: 0 20 25 20
+  //icon-source: /images/game/minimap/zoom_out
 
 MinimapResetButton < Button
-  icon-source: /images/ui/minimap/mapCenter
-  !tooltip: tr('Center the map.')
-  icon-clip: 0 0 25 20
-  size: 20 15
-  margin: 0 0 7 4
+  !text: tr('Center')
+  size: 44 20
   anchors.left: parent.left
-  anchors.bottom: parent.bottom
-  image-border: 14
-  
-  $pressed:
-    icon-clip: 0 40 25 20
-
-  $hover !pressed:
-    icon-clip: 0 20 25 20
+  anchors.top: parent.top
+  margin: 4
 
 Minimap < UIMinimap
   draggable: true
@@ -126,68 +85,57 @@ Minimap < UIMinimap
     id: resetWidget
     @onClick: self:getParent():reset()
 
-    MinimapMaxButton
-    @onClick: modules.game_minimap.toggleFullMap()
+
+// Minimap Flag Create Window
+
 
 MinimapFlagCheckBox < CheckBox
-  size: 26 26
+  size: 15 15
   margin-left: 2
-  image-source: /images/ui/misc/vipcheckbox
-  image-size: 26 26
-  image-border: 5
+  image-source: /images/game/minimap/flagcheckbox
+  image-size: 15 15
+  image-border: 3
   icon-source: /images/game/minimap/mapflags
   icon-size: 11 11
-  icon-offset: 7 7
+  icon-offset: 2 4
   anchors.left: prev.right
   anchors.top: prev.top
   $!checked:
     image-clip: 26 0 26 26
-
   $hover !checked:
     image-clip: 78 0 26 26
-
-  $hover !checked pressed:
-    image-clip: 52 0 26 26
-
   $checked:
     image-clip: 0 0 26 26
-
   $hover checked:
-    image-clip: 0 0 26 26
-
-  $hover checked pressed:
     image-clip: 52 0 26 26
 
 MinimapFlagWindow < MainWindow
   !text: tr('Create Map Mark')
-  size: 300 232
+  size: 240 210
 
   Label
     !text: tr('Position') .. ':'
     text-auto-resize: true
     anchors.top: parent.top
     anchors.left: parent.left
-    margin-top: 4
-    margin-left: 4
+    margin-top: 2
 
   Label
     id: position
     text-auto-resize: true
     anchors.top: parent.top
     anchors.right: parent.right
-    margin-top: 4
-    margin-right: 4
+    margin-top: 2
 
   Label
     !text: tr('Description') .. ':'
     anchors.left: parent.left
     anchors.top: prev.bottom
     margin-top: 7
-    margin-left: 4
 
   TextEdit
     id: description
-    margin-top: 5
+    margin-top: 3
     anchors.left: parent.left
     anchors.top: prev.bottom
     anchors.right: parent.right
@@ -197,7 +145,7 @@ MinimapFlagWindow < MainWindow
     icon-source: /images/game/minimap/flag0
     anchors.left: parent.left
     anchors.top: prev.bottom
-    margin-top: 10
+    margin-top: 6
     margin-left: 0  
 
   MinimapFlagCheckBox
@@ -280,139 +228,65 @@ MinimapFlagWindow < MainWindow
     id: flag19
     icon-source: /images/game/minimap/flag19
 
-  UIWidget
-    id: vertSep
-    size: 1 1
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    anchors.horizontalCenter: parent.horizontalCenter
-
-  Panel
-    id: leftHalf
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
+  MinimapFlagCheckBox
+    id: flag20
+    icon-source: /images/game/minimap/flag20
     anchors.left: parent.left
-    anchors.right: vertSep.left
+    anchors.top: prev.bottom
+    margin-top: 6
+    margin-left: 0
 
-  Panel
-    id: rightHalf
-    anchors.top: parent.top
-    anchors.bottom: parent.bottom
-    anchors.right: parent.right
-    anchors.left: vertSep.right
+  MinimapFlagCheckBox
+    id: flag21
+    icon-source: /images/game/minimap/flag21
+
+  MinimapFlagCheckBox
+    id: flag22
+    icon-source: /images/game/minimap/flag22
+
+  MinimapFlagCheckBox
+    id: flag23
+    icon-source: /images/game/minimap/flag23
+
+  MinimapFlagCheckBox
+    id: flag24
+    icon-source: /images/game/minimap/flag24
 
   Button
     id: okButton
     !text: tr('Ok')
     width: 64
-    anchors.right: leftHalf.right
+    anchors.right: next.left
     anchors.bottom: parent.bottom
-    margin-right: 5
+    margin-right: 10
 
   Button
     id: cancelButton
     !text: tr('Cancel')
     width: 64
-    anchors.left: rightHalf.left
+    anchors.right: parent.right
     anchors.bottom: parent.bottom
-    margin-left: 5
-MinimapWindow < MiniWindow
-  height: 173
 
-  UIWidget
-    !text: tr('Minimap')
-    color: #c7c0b8
-    anchors.left: parent.left
-    anchors.verticalCenter: closeButton.verticalCenter
-    margin: 0 0 0 28
-    text-auto-resize: true
-    text-align: left
-    text-wrap: true
-    phantom: true
+MinimapWindow < MiniWindow
+  height: 150
 
   Label
     text: ?
     text-align: center
     phantom: false
     !tooltip: tr('Hold left mouse button to navigate\nScroll mouse middle button to zoom\nRight mouse button to create map marks\nPress Ctrl+Shift+M to view the entire game map')
+    anchors.top: lockButton.top
     anchors.right: lockButton.left
-    anchors.verticalCenter: lockButton.verticalCenter
-    anchors.horizontalCenter: parent.horizontalCenter
-    margin-left: -8
-    size: 12 12
+    margin-right: 3
+    size: 14 14
 
   MiniWindowContents
     Minimap
       id: minimap
       anchors.fill: parent
 
-    UIWidget
-      image-source: /images/ui/misc/shadow/top
-      anchors.top: parent.top
-      anchors.left: parent.left
-      anchors.right: parent.right
-      phantom: true
-      focusable: false
-  
-    UIWidget
-      image-source: /images/ui/misc/shadow/bottom
-      anchors.bottom: parent.bottom
-      anchors.left: parent.left
-      anchors.right: parent.right
-      phantom: true
-      focusable: false
-
-    UIWidget
-      image-source: /images/ui/misc/shadow/left
-      anchors.top: parent.top
-      anchors.bottom: parent.bottom
-      anchors.left: parent.left
-      phantom: true
-      focusable: false
-
-    UIWidget
-      image-source: /images/ui/misc/shadow/right
-      anchors.top: parent.top
-      anchors.bottom: parent.bottom
-      anchors.right: parent.right
-      phantom: true
-      focusable: false
-
-    UIWidget
-      image-source: /images/ui/misc/topLeft
-      size: 7 3
-      anchors.top: parent.top
-      anchors.left: parent.left
-      phantom: true
-      focusable: false
-
-    UIWidget
-      image-source: /images/ui/misc/topRight
-      size: 7 3
-      anchors.top: parent.top
-      anchors.right: parent.right
-      phantom: true
-      focusable: false
-
-    UIWidget
-      image-source: /images/ui/misc/bottomLeft
-      size: 37 7
-      anchors.bottom: parent.bottom
-      anchors.left: parent.left
-      phantom: true
-      focusable: false
-
-    UIWidget
-      image-source: /images/ui/misc/bottomRight
-      size: 37 7
-      anchors.bottom: parent.bottom
-      anchors.right: parent.right
-      phantom: true
-      focusable: false
-      
   ResizeBorder
     anchors.right: parent.right
     anchors.top: parent.top
     anchors.bottom: parent.bottom
     enabled: true
-    minimum: 262

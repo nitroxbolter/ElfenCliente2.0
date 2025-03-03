@@ -8,7 +8,16 @@ oldPos = nil
 
 function init()
   minimapWindow = g_ui.loadUI('minimap', modules.game_interface.getRightPanel())
+  minimapWindow:setContentMinimumHeight(64)
+
+  if not minimapWindow.forceOpen then
+    minimapButton = modules.client_topmenu.addRightGameToggleButton('minimapButton', 
+      tr('Minimap') .. ' (Ctrl+M)', '/images/topbuttons/minimap', toggle)
+    minimapButton:setOn(true)
+  end
+
   minimapWidget = minimapWindow:recursiveGetChildById('minimap')
+
   local gameRootPanel = modules.game_interface.getRootPanel()
   g_keyboard.bindKeyPress('Alt+Left', function() minimapWidget:move(1,0) end, gameRootPanel)
   g_keyboard.bindKeyPress('Alt+Right', function() minimapWidget:move(-1,0) end, gameRootPanel)
