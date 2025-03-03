@@ -193,7 +193,7 @@ function load()
 end
 
 function onLoginAdvice(message)
-  displayInfoBox(tr("For Your Information"), message)
+  displayInfoBox(tr("Informação"), message)
 end
 
 function forceExit()

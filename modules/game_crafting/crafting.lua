@@ -327,14 +327,14 @@ function selectItem(id)
 
   if craft.storage and craft.storage > 0 then
     if craft.playerStorage == 1 then
-      storageLabel:setText("Recipe Unlocked")
+      storageLabel:setText("Receita Bloqueada")
       storageLabel:setColor("#00FF00")
     else
-      storageLabel:setText("You need to learn this recipe")
+      storageLabel:setText("15 % de Falha")
       storageLabel:setColor("#FF0000")
     end
   else
-    storageLabel:setText("No need to learn the recipe")
+    storageLabel:setText("15 % de Falha")
     storageLabel:setColor("#FFFFFF")
   end
 

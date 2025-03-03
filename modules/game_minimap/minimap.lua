@@ -7,14 +7,18 @@ oldZoom = nil
 oldPos = nil
 
 function init()
+  connect(g_game, {
+    onGameStart = refresh
+  })
+
+  connect(LocalPlayer, {
+    onPositionChange = updateCameraPosition
+  })
+
+  g_keyboard.bindKeyDown('Ctrl+M', toggle)
+  g_keyboard.bindKeyDown('Ctrl+Shift+M', toggleFullMap)
   minimapWindow = g_ui.loadUI('minimap', modules.game_interface.getRightPanel())
   minimapWindow:setContentMinimumHeight(64)
-
-  if not minimapWindow.forceOpen then
-    minimapButton = modules.client_topmenu.addRightGameToggleButton('minimapButton', 
-      tr('Minimap') .. ' (Ctrl+M)', '/images/topbuttons/minimap', toggle)
-    minimapButton:setOn(true)
-  end
 
   minimapWidget = minimapWindow:recursiveGetChildById('minimap')
 
@@ -23,23 +27,8 @@ function init()
   g_keyboard.bindKeyPress('Alt+Right', function() minimapWidget:move(-1,0) end, gameRootPanel)
   g_keyboard.bindKeyPress('Alt+Up', function() minimapWidget:move(0,1) end, gameRootPanel)
   g_keyboard.bindKeyPress('Alt+Down', function() minimapWidget:move(0,-1) end, gameRootPanel)
-  g_keyboard.bindKeyDown('Ctrl+M', toggle)
-  g_keyboard.bindKeyDown('Ctrl+Shift+M', toggleFullMap)
 
   minimapWindow:setup()
-
-  connect(g_game, {
-    onGameStart = online,
-    onGameEnd = offline,
-  })
-
-  connect(LocalPlayer, {
-    onPositionChange = updateCameraPosition
-  })
-
-  if g_game.isOnline() then
-    online()
-  end
 end
 
 function terminate()
@@ -48,8 +37,7 @@ function terminate()
   end
 
   disconnect(g_game, {
-    onGameStart = online,
-    onGameEnd = offline,
+    onGameStart = refresh
   })
 
   disconnect(LocalPlayer, {
@@ -71,20 +59,16 @@ function terminate()
 end
 
 function toggle()
-  if not minimapButton then return end
-  if minimapButton:isOn() then
-    minimapWindow:close()
-    minimapButton:setOn(false)
+  if minimapWindow:isVisible() then
+    minimapWindow:hide()
   else
-    minimapWindow:open()
-    minimapButton:setOn(true)
+    minimapWindow:show()
+    minimapWindow:raise()
   end
 end
 
 function onMiniWindowClose()
-  if minimapButton then
-    minimapButton:setOn(false)
-  end
+  minimapWindow:hide()
 end
 
 function online()

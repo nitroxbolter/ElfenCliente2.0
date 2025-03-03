@@ -16,8 +16,7 @@ CategoryButton < UIButton
   size: 106 23
   image-source: /images/ui/button
   image-color: #ababab
-  image-clip: 0 0 22 23
-  image-border: 3
+  image-clip: 0 0 75 30
   opacity: 1.0
   padding-left: 0
 
@@ -25,7 +24,7 @@ CategoryButton < UIButton
     image-color: #dfdfdf
 
   $pressed:
-    image-clip: 0 46 22 23
+    image-clip: 0 60 75 30
     padding-left: 1
 
   $on:
@@ -52,11 +51,11 @@ CategoryLabel < Label
 
 ItemListItem < Panel
   phantom: false
-  height: 36
+  height: 39
   image-source: /images/ui/button
   image-color: #ababab
-  image-clip: 0 0 22 23
-  image-border: 3
+  image-clip: 0 0 60 30
+  image-border: 10
   padding-left: 3
   @onClick: modules.game_crafting.selectItem(self:getId())
 
@@ -101,7 +100,7 @@ CountLabel < Label
   margin-top: 5
 
 MainWindow
-  text: Crafting System
+  text: Sistema de Criação
   size: 640 520
   layout:
     type: anchor
@@ -214,7 +213,7 @@ MainWindow
     anchors.top: prev.bottom
     anchors.left: parent.left
     anchors.right: parent.right
-    margin-top: 10
+    margin-top: 1
 
   Panel
     anchors.top: prev.top
@@ -226,7 +225,7 @@ MainWindow
     Label
       anchors.verticalCenter: parent.verticalCenter
       anchors.left: parent.left
-      text: Search
+      text: Pesquisar
 
     TextEdit
       id: searchInput
@@ -319,7 +318,7 @@ MainWindow
     anchors.left: itemsList.right
     anchors.right: parent.right
     margin-left: 10
-    text: Crafting Process
+    text: Progresso de Criação
 
     Label
       id: storageStatus
@@ -345,7 +344,7 @@ MainWindow
     Item
       id: craftOutcome
       anchors.centerIn: parent
-      margin-bottom: 10
+      margin-bottom: 50
       virtual: true
 
     Panel
@@ -485,7 +484,7 @@ MainWindow
       anchors.right: parent.right
       margin-right: 5
       margin-bottom: 49
-      text: Total Cost
+      text: Custo
       text-align: right
       color: #afafaf
 
