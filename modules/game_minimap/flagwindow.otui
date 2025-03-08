@@ -26,7 +26,7 @@ FlagButton < CheckBox
 FlagWindow < MainWindow
   id: flagWindow
   !text: tr('Create Map Mark')
-  size: 240 210
+  size: 196 185
 
   Label
     id: position
@@ -168,33 +168,7 @@ FlagWindow < MainWindow
 
   FlagButton
     id: flag20
-    icon-clip: 11 22 11 11
-    anchors.left: parent.left
-    anchors.top: prev.bottom
-    margin-top: 6
-    margin-left: 0
-
-  FlagButton
-    id: flag21
-    icon-clip: 22 22 11 11
-    anchors.left: prev.right
-    anchors.top: prev.top
-
-  FlagButton
-    id: flag22
-    icon-clip: 33 22 11 11
-    anchors.left: prev.right
-    anchors.top: prev.top
-
-  FlagButton
-    id: flag23
-    icon-clip: 44 22 11 11
-    anchors.left: prev.right
-    anchors.top: prev.top
-
-  FlagButton
-    id: flag24
-    icon-clip: 55 22 11 11
+    icon-clip: 99 11 11 11
     anchors.left: prev.right
     anchors.top: prev.top
 

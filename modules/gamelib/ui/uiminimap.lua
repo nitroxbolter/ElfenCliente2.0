@@ -1,11 +1,12 @@
-function UIMinimap:onCreate()
-  self.autowalk = true
-end
-
 function UIMinimap:onSetup()
   self.flagWindow = nil
+  self.floorUpWidget = self:getChildById('floorUp')
+  self.floorDownWidget = self:getChildById('floorDown')
+  self.zoomInWidget = self:getChildById('zoomIn')
+  self.zoomOutWidget = self:getChildById('zoomOut')
   self.flags = {}
   self.alternatives = {}
+  self.autowalk = true
   self.onAddAutomapFlag = function(pos, icon, description) self:addFlag(pos, icon, description) end
   self.onRemoveAutomapFlag = function(pos, icon, description) self:removeFlag(pos, icon, description) end
   connect(g_game, {
@@ -68,13 +69,11 @@ end
 function UIMinimap:save()
   local settings = { flags={} }
   for _,flag in pairs(self.flags) do
-    if not flag.temporary then
-      table.insert(settings.flags, {
-        position = flag.pos,
-        icon = flag.icon,
-        description = flag.description,
-      })
-    end
+    table.insert(settings.flags, {
+      position = flag.pos,
+      icon = flag.icon,
+      description = flag.description,
+    })
   end
   settings.zoom = self:getZoom()
   g_settings.setNode('Minimap', settings)
@@ -83,7 +82,6 @@ end
 local function onFlagMouseRelease(widget, pos, button)
   if button == MouseRightButton then
     local menu = g_ui.createWidget('PopupMenu')
-    menu:setGameMenu(true)
     menu:addOption(tr('Delete mark'), function() widget:destroy() end)
     menu:display(pos)
     return true
@@ -108,25 +106,19 @@ function UIMinimap:setCrossPosition(pos)
   end
 end
 
-function UIMinimap:addFlag(pos, icon, description, temporary)
+function UIMinimap:addFlag(pos, icon, description)
   if not pos or not icon then return end
   local flag = self:getFlag(pos, icon, description)
   if flag or not icon then
     return
   end
-  temporary = temporary or false
 
   flag = g_ui.createWidget('MinimapFlag')
   self:insertChild(1, flag)
   flag.pos = pos
   flag.description = description
   flag.icon = icon
-  flag.temporary = temporary
-  if type(tonumber(icon)) == 'number' then
-    flag:setIcon('/images/game/minimap/flag' .. icon)
-  else
-    flag:setIcon(resolvepath(icon, 1))
-  end
+  flag:setIcon('/images/game/minimap/flag' .. icon)
   flag:setTooltip(description)
   flag.onMouseRelease = onFlagMouseRelease
   flag.onDestroy = function() table.removevalue(self.flags, flag) end
@@ -233,7 +225,6 @@ function UIMinimap:onMouseRelease(pos, button)
     return true
   elseif button == MouseRightButton then
     local menu = g_ui.createWidget('PopupMenu')
-    menu:setGameMenu(true)
     menu:addOption(tr('Create mark'), function() self:createFlagWindow(mapPos) end)
     menu:display(pos)
     return true
@@ -260,14 +251,6 @@ function UIMinimap:onDragLeave(widget, pos)
   return true
 end
 
-function UIMinimap:onStyleApply(styleName, styleNode)
-  for name,value in pairs(styleNode) do
-    if name == 'autowalk' then
-      self.autowalk = value
-    end
-  end
-end
-
 function UIMinimap:createFlagWindow(pos)
   if self.flagWindow then return end
   if not pos then return end
@@ -282,7 +265,7 @@ function UIMinimap:createFlagWindow(pos)
   positionLabel:setText(string.format('%i, %i, %i', pos.x, pos.y, pos.z))
 
   local flagRadioGroup = UIRadioGroup.create()
-  for i=0,24 do
+  for i=0,19 do
     local checkbox = self.flagWindow:getChildById('flag' .. i)
     checkbox.icon = i
     flagRadioGroup:addWidget(checkbox)
@@ -313,4 +296,24 @@ function UIMinimap:destroyFlagWindow()
     self.flagWindow:destroy()
     self.flagWindow = nil
   end
+end
+
+function UIMinimap:removeFlags()
+  for i = #self.flags, 1, -1 do
+    local flag = self.flags[i]
+    if (flag) then
+      flag:destroy()
+    end
+  end
+  self.flags = {}
+end
+
+function UIMinimap:fragCreature(widget, pos, desc, time)
+  if not time then time = 1000 end
+  if not pos or not widget then return end
+  widget.pos = pos
+  widget.description = desc or ''
+  widget:setTooltip(desc)
+  self:centerInPosition(widget, widget.pos)
+  scheduleEvent(function() self:removeChild(widget) end, time)
 end

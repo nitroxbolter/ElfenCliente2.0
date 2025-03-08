@@ -16,7 +16,7 @@ Services = {
 -- Servers accept http login url, websocket login url or ip:port:version
 Servers = {
 
-  Exodus = "127.0.0.1:7171:1098"
+  Exodus = "192.168.2.150:7171:1098"
 
 }
 
