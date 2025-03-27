@@ -5,7 +5,7 @@ DEFAULT_LAYOUT = "mobile" -- on android it's forced to "mobile", check code bell
 
 -- If you don't use updater or other service, set it to updater = ""
 Services = {
-  website = "", -- currently not used
+  website = "127.0.0.1", -- currently not used
   updater = "",
   stats = "",
   crash = "",
@@ -16,7 +16,7 @@ Services = {
 -- Servers accept http login url, websocket login url or ip:port:version
 Servers = {
 
-  Exodus = "192.168.2.150:7171:1098"
+  Exodus = "127.0.0.1:7171:1098"
 
 }
 
