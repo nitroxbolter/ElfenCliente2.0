@@ -18,7 +18,7 @@ FragOutfit < UICreature
 
 UIWidget
   id: minimapWindow
-  size: 310 253
+  size: 210 190
   @onClose: modules.game_minimap.onMiniWindowClose()
   &save: true
   anchors.right: parent.right
@@ -39,23 +39,23 @@ UIWidget
 
   UIWidget
     id: minimapPanel
-    size: 310 253
     anchors.fill: parent
     
     UIMinimap
       id: minimap
-      size: 201 204
+      size: 142 150
       anchors.right: parent.right
       anchors.top: parent.top
       color: black
       draggable: true
       focusable: false
       cross: true
-      margin-top: 25
-      margin-right: 25
+      margin-top: 30
+      margin-right: 36
 
     UIWidget
       id: mask
+      anchors.fill: parent
       image-source: img/minimap.png
       phantom: true
 
@@ -67,8 +67,8 @@ UIWidget
       anchors.right: parent.right
       anchors.top: parent.top
       image-source: img/up_1.png
-      margin-top: 170
-      margin-right: 8
+      margin-top: 90
+      margin-right: 5
 
       $pressed:
         image-source: img/up_2.png
@@ -81,7 +81,7 @@ UIWidget
       anchors.right: parent.right
       anchors.top: parent.top
       image-source: img/down_1.png
-      margin-top: 206
+      margin-top: 120
       margin-right: 8
 
       $pressed:
@@ -92,11 +92,11 @@ UIWidget
       size: 32 33
       @onClick: self:getParent():getChildById('minimap'):zoomIn()
       !tooltip: tr('Zoom In')
-      anchors.right: parent.right
-      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
       image-source: img/zoomin_1.png
-      margin-top: 209
-      margin-right: 195
+      margin-bottom: 62
+      margin-left: 2
 
       $pressed:
         image-source: img/zoomin_2.png
@@ -106,11 +106,11 @@ UIWidget
       size: 32 33
       @onClick: self:getParent():getChildById('minimap'):zoomOut()
       !tooltip: tr('Zoom Out')
-      anchors.right: parent.right
-      anchors.top: parent.top
+      anchors.left: parent.left
+      anchors.bottom: parent.bottom
       image-source: img/zoomout_1.png
-      margin-top: 175
-      margin-right: 221
+      margin-bottom: 30
+      margin-left: 2
 
       $pressed:
         image-source: img/zoomout_2.png
@@ -122,8 +122,8 @@ UIWidget
       !tooltip: tr('Minimize')
       anchors.right: parent.right
       anchors.top: parent.top
-      margin-top: 15
-      margin-right: 10
+      margin-top: 20
+      margin-right: 38
       image-source: img/minimize_1.png
 
       $on !checked:
@@ -155,10 +155,8 @@ UIWidget
     UIWidget
       id: posLabel
       text-auto-resize: true
-      anchors.top: parent.top
-      anchors.left: parent.left
-      margin-top: 241
-      margin-left: 132
+      anchors.bottom: parent.bottom
+      anchors.horizontalCenter: parent.horizontalCenter
 
     UIWidget
       id: pingLabel
@@ -176,8 +174,8 @@ UIWidget
       image-source: ~
       size: 48 24
       anchors.top: parent.top
-      anchors.left: parent.left
-      margin-top: 20
+      anchors.horizontalCenter: parent.horizontalCenter
+      margin-top: 9
       margin-left: 25
     
       UIWidget
@@ -202,6 +200,6 @@ UIWidget
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.right: parent.right
-        text-offset: 2 0
+        text-offset: 1 0
         text-auto-resize: true
-        margin-top: 3
+        margin-top: 0
