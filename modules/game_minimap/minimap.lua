@@ -8,46 +8,10 @@ oldZoom = nil
 oldPos = nil
 fullMapWindow = nil
 fullMapWidget = nil
-m_dungeonTimer = nil
 
--- Constants
-local UPDATE_INTERVAL = 1
-local TIME_DELTA = 1440 * UPDATE_INTERVAL / 3600
-local PSOUL_MINUTE_PER_SECOND = 2.5
 
-local LIGHT_STATES = {}
-LIGHT_STATES.DAY = 0
-LIGHT_STATES.NIGHT = 1
-LIGHT_STATES.SUNSET = 3
-LIGHT_STATES.SUNRISE = 4
-LIGHT_STATES.DUNGEON = 5
-
--- Vars
-local window, time, timeNow, lightState, lightStateImage, event, m_dungeonTimer
 local enabled = true
 
--- Methods
-local function updateLight(state)
-    if (state ~= lightState) then
-        lightState = state
-        if (lightState == LIGHT_STATES.SUNRISE) then
-            lightStateImage:setImageSource('/images/ui/manha')
-            lightStateImage:setTooltip(tr('Morning'))
-        elseif (lightState == LIGHT_STATES.DAY) then
-            lightStateImage:setImageSource('/images/ui/tarde')
-            lightStateImage:setTooltip(tr('Day'))
-        elseif (lightState == LIGHT_STATES.SUNSET) then
-            lightStateImage:setImageSource('/images/ui/noite')
-            lightStateImage:setTooltip(tr('Night'))
-        elseif (lightState == LIGHT_STATES.NIGHT) then
-            lightStateImage:setImageSource('/images/ui/madrugada')
-            lightStateImage:setTooltip(tr('Night'))
-        elseif (lightState == LIGHT_STATES.DUNGEON) then
-            lightStateImage:setImageSource('/images/ui/DG_TIME')
-            lightStateImage:setTooltip(tr('DUNGEON'))
-        end
-    end
-end
 
 local MAP_COMPOSITIONS, COMPOSITIONS = {}, {}
 MAP_COMPOSITIONS[#MAP_COMPOSITIONS + 1] = {text = "Viridian", position = {x = 3296, y = 560, z = 7}}
@@ -114,8 +78,6 @@ function getMinimapWidget()
   return minimapWidget
 end
 
-local fpsLabel, pingLabel
-
 function init()
   minimapWindow = g_ui.loadUI('minimap', modules.game_interface.getRootPanel())
   minimapButton = minimapWindow:recursiveGetChildById('minimapButton')
@@ -127,9 +89,6 @@ function init()
   
   minimapWidget = minimapPanel:recursiveGetChildById('minimap')
   
-  fpsLabel = minimapPanel:getChildById('fpsLabel')
-  pingLabel = minimapPanel:getChildById('pingLabel')
-
   local gameRootPanel = modules.game_interface.getRootPanel()
   g_keyboard.bindKeyPress('Alt+Left', function() fullMapWidget:move(1,0) minimapWidget:move(1,0) end, gameRootPanel)
   g_keyboard.bindKeyPress('Alt+Right', function() fullMapWidget:move(-1,0) minimapWidget:move(-1,0) end, gameRootPanel)
@@ -143,21 +102,10 @@ function init()
   fullMapWidget = fullMapWindow:getChildById('minimap')
   fullMapWindow:hide()
   
-  window = minimapPanel:getChildById('time')
-  time = window:recursiveGetChildById('timeLabel')
-  time:setText("00:00")
-  lightStateImage = window:recursiveGetChildById('timeImage')
-  
-  event = cycleEvent(increaseMinute, PSOUL_MINUTE_PER_SECOND * 1000)
-
   connect(g_game, {
     onGameStart = online,
     onGameEnd = offline,
-	onPingBack = updatePing,
-    onLightHour = onLightHour
   })
-  
-  connect(g_app, { onFps = updateFps })
 
   connect(LocalPlayer, {
     onPositionChange = updateCameraPosition
@@ -176,29 +124,11 @@ function terminate()
   disconnect(g_game, {
     onGameStart = online,
     onGameEnd = offline,
-	onPingBack = updatePing,
-    onLightHour = onLightHour
   })
 
   disconnect(LocalPlayer, {
     onPositionChange = updateCameraPosition
   })
-
-  removeEvent(event)
-  event = nil
-  
-  time = nil
-  timeNow = nil
-  lightState = nil
-  lightStateImage = nil
-
-  local gameRootPanel = modules.game_interface.getRootPanel()
-  g_keyboard.unbindKeyPress('Alt+Left', gameRootPanel)
-  g_keyboard.unbindKeyPress('Alt+Right', gameRootPanel)
-  g_keyboard.unbindKeyPress('Alt+Up', gameRootPanel)
-  g_keyboard.unbindKeyPress('Alt+Down', gameRootPanel)
-  g_keyboard.unbindKeyDown('Ctrl+M')
-  g_keyboard.unbindKeyDown('Ctrl+Shift+M')
 
   minimapWindow:destroy()
   fullMapWindow:destroy()
@@ -224,19 +154,10 @@ end
 function online()
   loadMap(not preloaded)
   updateCameraPosition()
-
-  addEvent(function()
-    if modules.client_options.getOption('showPing') and (g_game.getFeature(GameClientPing) or g_game.getFeature(GameExtendedClientPing)) then
-      pingLabel:show()
-    else
-      pingLabel:hide()
-    end
-  end)
 end
 
 function offline()
   saveMap()
-  pingLabel:hide()
 end
 
 local function loadCompositions()
@@ -343,83 +264,9 @@ function toggleFullMapVisible()
     end
 end
 
--- FPS E PING LABEL
-function updatePing(ping)
-  local text = 'Ping: '
-  local color
-  if ping < 0 then
-    text = text .. "??"
-    color = 'yellow'
-  else
-    text = text .. ping .. ' ms'
-    if ping >= 500 then
-      color = 'red'
-    elseif ping >= 250 then
-      color = 'yellow'
-    else
-      color = 'green'
-    end
-  end
-  pingLabel:setColor(color)
-  pingLabel:setText(text)
-end
-
-function setPingVisible(enable)
-  pingLabel:setVisible(enable)
-end
-
-function updateFps(fps)
-  text = 'FPS: ' .. fps
-  fpsLabel:setText(text)
-end
-
 function updatePos(pos)
   text = 'Posição: ' .. pos
   posLabel:setText(text)
-end
-
--- TIME
-
-function setTimeMode(mode)
-    if mode == "normal" then
-        lightState = LIGHT_STATES.NIGHT
-        setTime(timeNow)
-    elseif mode == "dungeon" then
-        updateLight(LIGHT_STATES.DUNGEON)
-        setTime(timeNow)
-    end
-end
-
-function setTime(worldTime)
-    timeNow = worldTime
-    
-    if lightState == LIGHT_STATES.DUNGEON then
-        local currentTime = os.time()
-        local hours = os.date("%H", currentTime)
-        local minutes = os.date("%M", currentTime)
-        time:setColor("red")
-        time:setText(string.format("%s:%s", hours, minutes))
-        return
-    end
-    
-    if (worldTime >= 1) and (worldTime <= 359) then
-        updateLight(LIGHT_STATES.NIGHT)
-    elseif (worldTime >= 360) and (worldTime <= 719) then
-        updateLight(LIGHT_STATES.SUNRISE)
-    elseif (worldTime >= 720) and (worldTime <= 1079) then
-        updateLight(LIGHT_STATES.DAY)
-    elseif (worldTime >= 1080) and (worldTime <= 1440) then
-        updateLight(LIGHT_STATES.SUNSET)        
-    end        
-
-    local hours = 0
-    while (worldTime > 60) do
-        hours = hours + 1
-        worldTime = worldTime - 60
-    end
-
-    time:setColor("white")
-    time:setText(string.format("%02d:%02d", hours, worldTime))
 end
 
 function setDisplay(v)
@@ -428,27 +275,9 @@ function setDisplay(v)
 end
 
 
-function increaseMinute()
-    if (not timeNow) then
-        return
-    end
-
-    timeNow = timeNow + 1
-    if (timeNow > 1440) then
-        timeNow = timeNow - 1440
-    end
-    setTime(timeNow)
-end
-
 function setLocation(text)
     window:recursiveGetChildById('location'):setText(text)
 end
-
-function onLightHour(lightHour)
-  setTime(lightHour)
-end
-
---
 
 function reset()
     local messageBox
