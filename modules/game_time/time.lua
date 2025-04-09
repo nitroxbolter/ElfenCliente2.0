@@ -5,11 +5,7 @@ function jsonTest.init()
 
     -- Adiciona a imagem no TopMenu
     jsonTest.timeImage = modules.client_topmenu.addRightGameButton(
-<<<<<<< HEAD
         'timeImage', '', '/images/time/day.png', nil, false, true
-=======
-        'timeImage', '', '/images/day.png', nil, false, true
->>>>>>> 7eb1d4353ce2faf81d81284d6efe3e659190ee2e
     )
 
     -- Centraliza a imagem no TopMenu
@@ -68,7 +64,6 @@ function jsonTest.onExtendedOpcode(protocol, opcode, buffer)
     -- Define a imagem com base no horário
     if jsonTest.timeImage then
         if hour >= 6 and hour < 12 then
-<<<<<<< HEAD
             jsonTest.timeImage:setIcon('/images/time/tarde.png') -- Entardecendo
         elseif hour >= 12 and hour < 18 then
             jsonTest.timeImage:setIcon('/images/time/day.png') -- Dia
@@ -76,15 +71,6 @@ function jsonTest.onExtendedOpcode(protocol, opcode, buffer)
             jsonTest.timeImage:setIcon('/images/time/evening.png') -- Anoitecendo
         else
             jsonTest.timeImage:setIcon('/images/time/night.png') -- Noite
-=======
-            jsonTest.timeImage:setIcon('/images/tarde.png') -- Entardecendo
-        elseif hour >= 12 and hour < 18 then
-            jsonTest.timeImage:setIcon('/images/day.png') -- Dia
-        elseif hour >= 18 and hour < 20 then
-            jsonTest.timeImage:setIcon('/images/evening.png') -- Anoitecendo
-        else
-            jsonTest.timeImage:setIcon('/images/night.png') -- Noite
->>>>>>> 7eb1d4353ce2faf81d81284d6efe3e659190ee2e
         end
     end
 

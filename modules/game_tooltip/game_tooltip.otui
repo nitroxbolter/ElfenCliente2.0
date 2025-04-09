@@ -4,7 +4,6 @@ LookItemName < Label
   font: verdana-14px-rounded
   text-horizontal-auto-resize: true
   text-align: center
-  color: #ffffff
   margin-top: 4
 
 TooltipSeparator < UIWidget
@@ -31,18 +30,6 @@ LookItemIconAttribute < UIWidget
     phantom: true
     margin-left: 7
     size: 19 19
-
-RarityIcons < UIWidget
-  layout:
-    type: verticalBox
-  height: 50
-  margin-top: 4
-
-StarsContainer < UIWidget
-  layout:
-    type: horizontalBox
-  height: 22
-  margin-top: 4
 
 UIMiniWindow
   id: tooltipWindow

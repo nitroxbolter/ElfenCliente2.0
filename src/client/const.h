@@ -130,9 +130,10 @@ namespace Otc
         InventorySlotDeck,
         InventorySlotBadge,
         InventorySlotShip,
+        InventorySlotWings,
         InventorySlotBelt,
         InventorySlotGloves,
-        LastInventorySlot
+		LastInventorySlot
     };
 
     enum Statistic {

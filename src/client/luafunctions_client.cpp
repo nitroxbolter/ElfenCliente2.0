@@ -696,6 +696,7 @@ void Client::registerLuaFunctions()
     g_lua.bindClassMemberFunction<Item>("getShader", &Item::getShader);
     g_lua.bindClassMemberFunction<Item>("setCustomAttribute", &Item::setCustomAttribute);
     g_lua.bindClassMemberFunction<Item>("getCustomAttribute", &Item::getCustomAttribute);
+    g_lua.bindClassMemberFunction<Item>("getRarityId", &Item::getRarityId);
 
     g_lua.registerClass<Effect, Thing>();
     g_lua.bindClassStaticFunction<Effect>("create", []{ return EffectPtr(new Effect); });

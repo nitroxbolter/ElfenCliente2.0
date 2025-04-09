@@ -46,26 +46,32 @@ m_TooltipFunction.TOOLTIP_ATTRIBUTE_EARTH_ATTACK = 38
 m_TooltipFunction.TOOLTIP_ATTRIBUTE_HOLY_ATTACK = 39
 m_TooltipFunction.TOOLTIP_ATTRIBUTE_WATER_ATTACK = 40
 m_TooltipFunction.TOOLTIP_ATTRIBUTE_ARCANE_ATTACK = 41
-m_TooltipFunction.TOOLTIP_ATTRIBUTE_EXTRADEFENSE = 42
+m_TooltipFunction.TOOLTIP_ATTRIBUTE_INCREMENTS = 34
+m_TooltipFunction.TOOLTIP_ATTRIBUTE_EXTRADEFENSE = 35
+m_TooltipFunction.TOOLTIP_ATTRIBUTE_FIRE_ATTACK = 36
+m_TooltipFunction.TOOLTIP_ATTRIBUTE_ENERGY_ATTACK = 37
+m_TooltipFunction.TOOLTIP_ATTRIBUTE_ICE_ATTACK = 38
+m_TooltipFunction.TOOLTIP_ATTRIBUTE_DEATH_ATTACK = 39
+m_TooltipFunction.TOOLTIP_ATTRIBUTE_EARTH_ATTACK = 40
+m_TooltipFunction.TOOLTIP_ATTRIBUTE_HOLY_ATTACK = 41
 
 m_TooltipFunction.descriptionByAttributeId = {
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ATTACK] = {name = "Attack: %s", icon = 4},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_DEFENSE] = {name = "Defense: %s", icon = 6},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_EXTRADEFENSE] = {name = "Extra Def: %s", icon = 6},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ATTACK] = {name = "Attack: %s", icon = 1},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_DEFENSE] = {name = "Defense: %s", icon = 3},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_WEIGHT] = {name = "%s", icon = 8},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ARMOR] = {name = "Armor: %s", icon = 5},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ARMOR] = {name = "Armor: %s", icon = 2},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_HITCHANCE] = {name = "Hit Chance: %s", icon = 47, symbol = true},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_SHOOTRANGE] = {name = "Range: %s", icon = 9},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_DURATION] = {name = "%s", icon = 38},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_CHARGES] = {name = "Charges: %s", icon = 10},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_FLUIDTYPE] = {name = "%s", icon = 27},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ATTACK_SPEED] = {name = "Attack Speed: %s ms", icon = 20},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ATTACK_SPEED] = {name = "Attack Speed: %s Seconds", icon = 20},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_KEY] = {name = "Key: %s", icon = 28},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_TEXT] = {name = "%s", icon = 17},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_WIELDINFO] = {name = "%s", icon = 17},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_WIELDINFO] = {name = "%s", icon = 44},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_RUNE_LEVEL] = {name = "Rune Level: %s", icon = 59},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_RUNE_MAGIC_LEVEL] = {name = "Rune Magic Level: %s", icon = 59},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_RUNE_NAME] = {name = "Rune Spell Name: %s", icon = 58},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_RUNE_NAME] = {name = "Rune Name: %s", icon = 17},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_CONTAINER_SIZE] = {name = "Vol: %s", icon = 15},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_SPEED] = {name = "Speed: %s", icon = 51, symbol = true},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_CRITICALHIT_CHANCE] = {name = "Critical Hit Chance: %s%%", icon = 12, symbol = true},
@@ -76,31 +82,21 @@ m_TooltipFunction.descriptionByAttributeId = {
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_LIFE_LEECH_AMOUNT] = {name = "Life Leech Multiplier: %s%%", icon = 13, symbol = true},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_INCREMENT_COINS] = {name = "%s%% Extra Gold From Monsters", icon = 15, symbol = true},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_EXPERIENCE] = {name = "%s%% Extra Experience", icon = 49, symbol = true},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_FIRE_ATTACK] = {name = "Element Fire: %s%%", icon = 75, symbol = true},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ENERGY_ATTACK] = {name = "Element Energy: %s%%", icon = 66, symbol = true},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ICE_ATTACK] = {name = "Element Ice: %s%%", icon = 64, symbol = true},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_FIRE_ATTACK] = {name = "Element Fire: %s%%", icon = 32, symbol = true},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ENERGY_ATTACK] = {name = "Element Energy: %s%%", icon = 31, symbol = true},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ICE_ATTACK] = {name = "Element Ice: %s%%", icon = 33, symbol = true},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_DEATH_ATTACK] = {name = "Element Death: %s%%", icon = 35, symbol = true},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_EARTH_ATTACK] = {name = "Element Earth: %s%%", icon = 91, symbol = true},
-	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_HOLY_ATTACK] = {name = "Element Holy: %s%%", icon = 68, symbol = true},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_EARTH_ATTACK] = {name = "Element Earth: %s%%", icon = 34, symbol = true},
+	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_HOLY_ATTACK] = {name = "Element Holy: %s%%", icon = 36, symbol = true},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_WATER_ATTACK] = {name = "Element Water: %s%%", icon = 76, symbol = true},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_ARCANE_ATTACK] = {name = "Element Arcane: %s%%", icon = 86, symbol = true},
 
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_RARITY] = {
-	[1] = {name = "Common", icon = 93, color = "#AAAAAA"}, -- Common (Gray)
-	[2] = {name = "Uncommon", icon = 94, color = "#1EFF00"}, -- Uncommon (Green)
-	[3] = {name = "Rare", icon = 25, color = "#0088FF"}, -- Rare (Blue)
-	[4] = {name = "Epic", icon = 26, color = "#870DFF"}, -- Epic (Purple)
-	[5] = {name = "Legendary", icon = 58, color = "#F5891D"}, -- Legendary (Orange)
-	[6] = {name = "Exotic", icon = 96, color = "#FA5025"}, -- Exotic (Vivid Orange)
-	[7] = {name = "Mythic", icon = 16, color = "#F0E229"}, -- Mythic (Golden Yellow)
-	[8] = {name = "Chaos", icon = 52, color = "#990000"}, -- Chaos (Dark Red)
-	[9] = {name = "Eternal", icon = 95, color = "#00CFFF"}, -- Eternal (Cyan)
-	[10] = {name = "Divine", icon = 97, color = "#FFD700"}, -- Divine (Bright Gold)
-	[11] = {name = "Phantasmal", icon = 99, color = "#A600FF"}, -- Phantasmal (Deep Purple)
-	[12] = {name = "Celestial", icon = 98, color = "#7DFFFA"}, -- Celestial (Light Aqua)
-	[13] = {name = "Cosmic", icon = 103, color = "#FF4500"}, -- Cosmic (Fiery Red-Orange)
-	[14] = {name = "Abyssal", icon = 102, color = "#2b68b3"}, -- Abyssal (Blue Indigo)
-	[15] = {name = "Transcendent", icon = 101, color = "#FF0000"}, -- Transcendent (Brutal Demonic Red)
+		[1] = {name = "Common", icon = 52, color = "#74C365"}, -- ITEM_RARITY_COMMON
+		[2] = {name = "Rare", icon = 55, color = "#0096FF"}, -- ITEM_RARITY_RARE
+		[3] = {name = "Epic", icon = 50, color = "#8040BF"}, -- ITEM_RARITY_EPIC
+		[4] = {name = "Legendary", icon = 16, color = "#FCC200"}, -- ITEM_RARITY_LEGENDARY
+		[5] = {name = "Brutal", icon = 62, color = "#DE0913"} -- ITEM_RARITY_BRUTAL
 	},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_RESISTANCES] = {
 		[0] = {name = "Physical Absorb: %s%%", icon = 30}, -- COMBAT_PHYSICALDAMAGE
@@ -118,7 +114,6 @@ m_TooltipFunction.descriptionByAttributeId = {
 		[12] = {name = "Water Absorb: %s%%", icon = 40}, -- COMBAT_WATERDAMAGE
 		[13] = {name = "Arcane Absorb: %s%%", icon = 56}, -- COMBAT_ARCANEDAMAGE
 	};
-	
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_INCREMENTS] = {
 		[0] = {name = "Increase Physical Damage: %s%%", icon = 30}, -- COMBAT_PHYSICALDAMAGE
 		[1] = {name = "Increase Energy Damage: %s%%", icon = 31}, -- COMBAT_ENERGYDAMAGE
@@ -131,7 +126,7 @@ m_TooltipFunction.descriptionByAttributeId = {
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_STATS] = {
 		[0] = {name = "Maximum Health: %s", icon = 39}, -- STAT_MAXHITPOINTS
 		[1] = {name = "Maximum Mana: %s", icon = 40}, -- STAT_MAXMANAPOINTS
-		[3] = {name = "Magic Level: %s", icon = 62} -- STAT_MAGICPOINTS
+		[3] = {name = "Magic Level: %s", icon = 17} -- STAT_MAGICPOINTS
 	},
 	[m_TooltipFunction.TOOLTIP_ATTRIBUTE_SKILL] = {
 		[0] = {name = "Fist Fighting: %s", icon = 60}, -- SKILL_FIST
@@ -141,10 +136,10 @@ m_TooltipFunction.descriptionByAttributeId = {
 		[4] = {name = "Distance Fighting: %s", icon = 22}, -- SKILL_DISTANCE
 		[5] = {name = "Shielding: %s", icon = 25}, -- SKILL_SHIELD
 		[6] = {name = "Fishing: %s", icon = 23}, -- SKILL_FISHING
-		[7] = {name = "Crafting: %s", icon = 90, color = "#8c0325"}, -- SKILL_CRAFTING
-		[8] = {name = "Woodcutting: %s", icon = 89, color = "#b04900"}, -- SKILL_WOODCUTTING
-		[9] = {name = "Mining: %s", icon = 82, color = "#997979"}, -- SKILL_MINING
-		[10] = {name = "Herbalist: %s", icon = 81, color = "#00b04f"}, -- SKILL_HERBALIST
+		[7] = {name = "Mining: %s", icon = 29, color = "#997979"}, -- SKILL_MINING
+		[8] = {name = "Woodcutting: %s", icon = 30, color = "#b04900"}, -- SKILL_WOODCUTTING
+		[9] = {name = "Crafting: %s", icon = 54, color = "#8c0325"}, -- SKILL_CRAFTING
+		[10] = {name = "Herbalist: %s", icon = 28, color = "#00b04f"}, -- SKILL_HERBALIST
 		[11] = {name = "Armorsmith: %s", icon = 5, color = "#ff7f39"}, -- SKILL_ARMORSMITH
 		[12] = {name = "Weaponsmith: %s", icon = 4, color = "#ff4117"}, -- SKILL_WEAPONSMITH
 		[13] = {name = "Jewelsmith: %s", icon = 10, color = "#17c0ff"}, -- SKILL_JEWELSMITH
@@ -360,7 +355,6 @@ m_TooltipFunction.open = function(list)
 	end
 	
 	m_TooltipList.window:show()
-	g_effects.fadeIn(m_TooltipList.window, 300)
 	m_TooltipList.window:getChildById("item"):setItemId(m_TooltipList.itemId)
 
 	local height = 48
@@ -378,14 +372,9 @@ m_TooltipFunction.open = function(list)
 
 	height, width, nameWidget = m_TooltipFunction.addLabel("LookItemName", height, width, name, nil, color)
 	height = m_TooltipFunction.addLabel("TooltipSeparator", height, width)
-	
-	local hasRarity = false
-	local hasAttributes = false	
+
 	local lastAttributeId
 	for _, attributeValues in pairs(list) do
-		if attributeValues.id == m_TooltipFunction.TOOLTIP_ATTRIBUTE_TEXT then
-
-		  else
 		local v = m_TooltipFunction.descriptionByAttributeId[attributeValues.id]
 		if v then
 			if lastAttributeId == m_TooltipFunction.TOOLTIP_ATTRIBUTE_WEIGHT or lastAttributeId == m_TooltipFunction.TOOLTIP_ATTRIBUTE_RARITY then
@@ -393,132 +382,24 @@ m_TooltipFunction.open = function(list)
 				
 				if attributeValues.id == m_TooltipFunction.TOOLTIP_ATTRIBUTE_RARITY then
 					height, width = m_TooltipFunction.addLabel("LookItemName", height, width, "Rarity")
-					hasRarity = true
 				else
 					height, width = m_TooltipFunction.addLabel("LookItemName", height, width, "Attributes")
-					hasAttributes = true
-				end
-				local label = m_TooltipList.list:getLastChild()
-				if label then
-    				label:setTextAlign(AlignLeft)
-					label:setMarginLeft(16)
 				end
 			end
+			
 			if not v.name then
+				-- Resistances/skills
 				v = v[attributeValues.type] or v[attributeValues.value]
 				if v then
 					if tonumber(attributeValues.value) and attributeValues.value > 0 then
 						attributeValues.value = "+" .. attributeValues.value
 					end
-					local description = v.name:format(attributeValues.value)
-					if attributeValues.id == m_TooltipFunction.TOOLTIP_ATTRIBUTE_RARITY then
-						local container = g_ui.createWidget("RarityIcons")
-						container:setParent(m_TooltipList.list)
-			
-						local rarityName = g_ui.createWidget("LookItemName", container)
-						rarityName:setText(v.name)
-						rarityName:setColor(v.color)
-						rarityName:setTextAlign(AlignLeft)
-						rarityName:setMarginLeft(16)
-						rarityName:setMarginBottom(4)
-			
-						local starContainer = g_ui.createWidget("StarsContainer", container)
-						starContainer:setMarginTop(4)
-			
-						local iconCount = 1
-						local rarityValue = tonumber(attributeValues.value) or 0
-			
-						if rarityValue >= 3 and rarityValue < 6 then
-							iconCount = 2
-						elseif rarityValue >= 6 and rarityValue < 10 then
-							iconCount = 3
-						elseif rarityValue >= 10 and rarityValue < 15 then
-							iconCount = 4
-						elseif rarityValue >= 15 then
-							iconCount = 5
-						end
-			
-						for i = 1, iconCount do
-							local iconWidget = g_ui.createWidget("LookItemIconAttribute", starContainer)
-							iconWidget:getChildById("icon"):setImageClip(m_TooltipFunction.getImageClip(v.icon))
-							iconWidget:getChildById("icon"):setColor(v.color)
-							iconWidget:setMarginLeft(4)
-							iconWidget:setMarginRight(4)
-						end
-			
-						height = height + container:getHeight() + 4
-						width = math.max(container:getWidth(), width)
-
-						local customIconMapping = {
-							Level = 104,
-							Physical = 30,
-							Energy   = 31,
-							Earth    = 34,
-							Fire     = 32,
-							Drown    = 61,
-							Ice      = 33,
-							Holy     = 36,
-							Death    = 35,
-							Water    = 40,
-							Arcane   = 56,
-							attack = 4,
-							defense = 6,
-							["extra def"] = 6,
-							armor = 5,
-							["hit chance"] = 47,
-							["attack speed"] = 20,
-							speed = 51,
-							["critical hit"] = 12,
-							["critical chance"] = 12,
-							["mana chance"] = 45,
-							["mana amount"] = 45,
-							["life chance"] = 13,
-							["life amount"] = 13,
-							Club = 30,
-							Sword = 18,
-							Axe = 19,
-							Fist = 60,
-							Distance = 22,
-							Shielding = 25,
-							Fishing = 23,
-							Crafting = 90,
-							Woodcutting = 89,
-							Mining = 82,
-							Herbalism = 81,
-							Armorsmithing = 5,
-							Weaponsmithing = 4,
-							Jewelsmithing = 10,
-							["Element: Fire"]   = 75,
-							["Element: Energy"] = 66,
-							["Element: Ice"]    = 64,
-							["Element: Death"]  = 35,
-							["Element: Earth"]  = 91,
-							["Element: Water"]  = 76,
-							["Element: Arcane"] = 86,
-							["Element: Holy"]   = 68,
-						  }
-						  local descriptionText = m_TooltipFunction.getAttribute(list, m_TooltipFunction.TOOLTIP_ATTRIBUTE_TEXT)
-						  if descriptionText and descriptionText ~= "" then
-							for line in descriptionText:gmatch("([^,]+)") do
-							  line = line:gsub("^%s*(.-)%s*$", "%1")
-							  if line ~= "" then
-								local iconFound = nil
-								for keyword, iconId in pairs(customIconMapping) do
-								  if line:lower():find(keyword:lower()) then
-									iconFound = iconId
-									break
-								  end
-								end
-								height, width = m_TooltipFunction.addLabel("LookItemIconAttribute", height, width, line, iconFound, nil)
-							  end
-							end
-						  end
-					else
-						height, width = m_TooltipFunction.addLabel("LookItemIconAttribute", height, width, description, v.icon, v.color)
-					end
 					
-				end		
+					local description = v.name:format(attributeValues.value)
+					height, width = m_TooltipFunction.addLabel("LookItemIconAttribute", height, width, description, v.icon, v.color)
+				end
 			elseif attributeValues.value ~= "" then
+				-- All other attributes
 				if tonumber(attributeValues.value) and attributeValues.value > 0 then
 					if v.symbol then
 						attributeValues.value = "+" .. attributeValues.value
@@ -532,17 +413,6 @@ m_TooltipFunction.open = function(list)
 
 			lastAttributeId = attributeValues.id
 		end
-	end
-	end
-
-	if hasRarity and not hasAttributes then
-		height = m_TooltipFunction.addLabel("TooltipSeparator", height, width)
-	elseif hasRarity and hasAttributes then
-		height = m_TooltipFunction.addLabel("TooltipSeparator", height, width)
-	elseif not hasRarity and hasAttributes then
-		height = m_TooltipFunction.addLabel("TooltipSeparator", height, width)
-	elseif not hasRarity and not hasAttributes then
-		height = m_TooltipFunction.addLabel("TooltipSeparator", height, width)
 	end
 
 	m_TooltipList.window:setWidth(width)

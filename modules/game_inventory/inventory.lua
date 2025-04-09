@@ -188,55 +188,10 @@ function toggleAdventurerStyle(hasBlessing)
     end
   end
 end
-local function getFrame(v)
-  if v >= 20000000 then
-      return '/images/rarity/rarity_transcendent'
-  elseif v >= 10000000 then
-      return '/images/rarity/rarity_abyssal'
-  elseif v >= 5000000 then
-      return '/images/rarity/rarity_eternal'
-  elseif v >= 2000000 then
-      return '/images/rarity/rarity_chaos'
-  elseif v >= 1000000 then
-      return '/images/rarity/rarity_mythic'
-  elseif v >= 300000 then
-      return '/images/rarity/rarity_exotic'
-  elseif v >= 120000 then
-      return '/images/rarity/rarity_legendary'
-  elseif v >= 50000 then
-      return '/images/rarity/rarity_epic'
-  elseif v >= 10000 then
-      return '/images/rarity/rarity_rare'
-  elseif v >= 1000 then
-      return '/images/rarity/rarity_uncommon'
-  else
-      return '/images/rarity/item'
-  end
-end
-local ItemsTable = require("inventory_items")
-local function setFrames(panel)
-  if not panel then return end
-  for slot = InventorySlotFirst, InventorySlotGloves do
-    local itemWidget = panel:getChildById('slot' .. slot)
-    if itemWidget then
-      local item = itemWidget:getItem()
-      if item then
-        local itemName = item:getMarketData() and item:getMarketData().name:lower() or nil
-        if itemName then
-          local itemPrice = ItemsTable[itemName]
-          if itemPrice then
-            local frame = getFrame(itemPrice)
-            itemWidget:setImageSource(frame)
-          end
-        end
-      end
-    end
-  end
-end
 
 function refresh()
   local player = g_game.getLocalPlayer()
-  for i = InventorySlotFirst, InventorySlotGloves  do
+  for i = InventorySlotFirst, InventorySlotGloves do
     if g_game.isOnline() then
       onInventoryChange(player, i, player:getInventoryItem(i))
     else
@@ -248,7 +203,6 @@ function refresh()
     onSoulChange(player, player:getSoul())
     onFreeCapacityChange(player, player:getFreeCapacity())
     onStatesChange(player, player:getStates(), 0)
-    setFrames(inventoryPanel)
   end
 
   purseButton:setVisible(g_game.getFeature(GamePurseSlot))
@@ -289,7 +243,7 @@ function onInventoryChange(player, slot, item, oldItem)
     itemWidget:setStyle(InventorySlotStyles[slot])
     itemWidget:setItem(nil)
   end
-  setFrames(inventoryPanel)
+  g_game.updateRarityFrames(itemWidget, item and item:getRarityId() or 0)
 end
 
 function onBlessingsChange(player, blessings, oldBlessings)

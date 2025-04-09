@@ -1,3 +1,12 @@
+PlayerTradeItem < Item
+  
+  UIWidget
+    id: rarityId
+    anchors.fill: parent
+    image-source: /images/ui/rarity_frames
+    phantom: true
+    visible: false
+
 TradeWindow < MiniWindow
   !text: tr('Trade')
   height: 150

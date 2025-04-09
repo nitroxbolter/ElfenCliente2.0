@@ -3628,6 +3628,7 @@ ItemPtr ProtocolGame::getItem(const InputMessagePtr& msg, int id, bool hasDescri
         }
     }
 
+    item->setRarityId(msg->getU8());
     return item;
 }
 

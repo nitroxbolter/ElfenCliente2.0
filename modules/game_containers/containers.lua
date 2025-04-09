@@ -4,12 +4,13 @@ function init()
   connect(Container, { onOpen = onContainerOpen,
                        onClose = onContainerClose,
                        onSizeChange = onContainerChangeSize,
-                       onUpdateItem = onContainerUpdateItem })
+                       onUpdateItem = onContainerUpdateItem,
+                       onUpdate = onContainersUpdate })
   connect(g_game, {
     onGameStart = markStart,
     onGameEnd = clean
   })
-
+  g_ui.importStyle('containers')
   reloadContainers()
 end
 
@@ -17,11 +18,16 @@ function terminate()
   disconnect(Container, { onOpen = onContainerOpen,
                           onClose = onContainerClose,
                           onSizeChange = onContainerChangeSize,
-                          onUpdateItem = onContainerUpdateItem })
-  disconnect(g_game, { 
+                          onUpdateItem = onContainerUpdateItem,
+                          onUpdate = onContainersUpdate })
+  disconnect(g_game, {
     onGameStart = markStart,
     onGameEnd = clean
   })
+  function onContainersUpdate(container)
+    if not container.window then return end
+    refreshContainerItems(container)
+  end
 end
 
 function reloadContainers()
@@ -52,7 +58,9 @@ end
 function refreshContainerItems(container)
   for slot=0,container:getCapacity()-1 do
     local itemWidget = container.itemsPanel:getChildById('item' .. slot)
-    itemWidget:setItem(container:getItem(slot))
+    local item = container:getItem(slot)
+    itemWidget:setItem(item)
+    g_game.updateRarityFrames(itemWidget, item and item:getRarityId() or 0)
   end
 
   if container:hasPages() then
@@ -105,59 +113,6 @@ function refreshContainerPages(container)
         return nextPageButton.onClick()
       end
     end
-  end
-end
-
-local function getFrame(v)
-  if v >= 20000000 then
-      return '/images/rarity/rarity_transcendent'
-  elseif v >= 10000000 then 
-      return '/images/rarity/rarity_abyssal'
-  elseif v >= 5000000 then
-      return '/images/rarity/rarity_eternal'
-  elseif v >= 2000000 then
-      return '/images/rarity/rarity_chaos'
-  elseif v >= 1000000 then
-      return '/images/rarity/rarity_mythic'
-  elseif v >= 300000 then
-      return '/images/rarity/rarity_exotic'
-  elseif v >= 120000 then
-      return '/images/rarity/rarity_legendary'
-  elseif v >= 50000 then
-      return '/images/rarity/rarity_epic'
-  elseif v >= 10000 then
-      return '/images/rarity/rarity_rare'
-  elseif v >= 1000 then
-      return '/images/rarity/rarity_uncommon'
-  else
-      return '/images/rarity/item'
-  end
-end
-
-local ItemsTable = require("items_table")
-local function setFrames()
-  for _, container in pairs(g_game.getContainers()) do
-      local window = container.itemsPanel
-      for i, child in pairs(window:getChildren()) do
-          local itemId = child:getItemId()
-          if itemId ~= 0 then
-              local item = Item.create(itemId)
-              local itemName = item and item:getMarketData().name:lower() or nil
-              if itemName then
-                  local itemPrice = ItemsTable[itemName]
-                  if itemPrice then
-                      local frame = getFrame(itemPrice)
-                      child:setImageSource(frame)
-                  else
-                      child:setImageSource('/images/rarity/item')
-                  end
-              else
-                  child:setImageSource('/images/rarity/item')
-              end
-            else
-              child:setImageSource('/images/rarity/item') 
-          end
-      end
   end
 end
 
@@ -233,11 +188,13 @@ function onContainerOpen(container, previousContainer)
 
   containerPanel:destroyChildren()
   for slot=0,container:getCapacity()-1 do
-    local itemWidget = g_ui.createWidget('Item', containerPanel)
+    local itemWidget = g_ui.createWidget('ContainerItem', containerPanel)
+    local item = container:getItem(slot)
     itemWidget:setId('item' .. slot)
-    itemWidget:setItem(container:getItem(slot))
+    itemWidget:setItem(item)
     itemWidget:setMargin(0)
     itemWidget.position = container:getSlotPosition(slot)
+    g_game.updateRarityFrames(itemWidget, item and item:getRarityId() or 0)
 
     if not container:isUnlocked() then
       itemWidget:setBorderColor('red')
@@ -266,8 +223,7 @@ function onContainerOpen(container, previousContainer)
     local filledLines = math.max(math.ceil(container:getItemsCount() / layout:getNumColumns()), 1)
     containerWindow:setContentHeight(filledLines*cellSize.height)
   end
-  setFrames()
-  
+
   containerWindow:setup()
 end
 
@@ -278,12 +234,11 @@ end
 function onContainerChangeSize(container, size)
   if not container.window then return end
   refreshContainerItems(container)
-  setFrames()
 end
 
 function onContainerUpdateItem(container, slot, item, oldItem)
   if not container.window then return end
   local itemWidget = container.itemsPanel:getChildById('item' .. slot)
   itemWidget:setItem(item)
-  setFrames()
+  g_game.updateRarityFrames(itemWidget, item and item:getRarityId() or 0)
 end
